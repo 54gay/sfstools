@@ -1,0 +1,159 @@
+#:import Factory kivy.factory.Factory
+
+<MySpinnerOption@SpinnerOption>:
+    background_normal: "Assets/Button_Gray_Down.png"
+    background_down: "Assets/Button_Gray_Up.png"
+    height: "40sp"
+
+<ImageConverter>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        Button:
+            id: btn
+            text: "图像转换器"
+            color: 0.4, 0.4, 0.4, 1
+            background_normal: "Assets/ButtonS_White_Up.png"
+            background_down: "Assets/ButtonS_White_Down.png"
+            on_parent: dropdown.dismiss()
+            on_release: dropdown.open(self)
+            size_hint_y: None
+            height: "50dp"
+
+        DropDown:
+            id: dropdown
+            on_select: btn.text = '{}'.format(args[1])
+            size_hint_y: None
+            height: "50dp"
+
+            Button:
+                text: "环生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "RG"
+                    dropdown.dismiss()
+            Button:
+                text: "方向调整"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "OR"
+                    dropdown.dismiss()
+            Button:
+                text: "部件对齐器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "PA"
+                    dropdown.dismiss()
+            Button:
+                text: "字体生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "FG"
+                    dropdown.dismiss()
+
+    GridLayout:
+        cols: 2
+        Label:
+            text: "图像:"
+            color: .35, .35, .35, 1
+        GeneralSpinner:
+            id: IC_S
+            path_index: 2
+            background_normal: "Assets/Button_Gray_Up.png"
+            background_down: "Assets/Button_Gray_Down.png"
+            option_cls: Factory.get("MySpinnerOption")
+            on_release: self.update_spinner()
+            on_press: self.update_spinner()
+        Label:
+            text: "标志宽度:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: IC_Width
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "颜色纹理:"
+            color: .35, .35, .35, 1
+        Spinner:
+            id: IC_Color_Tex
+            text: "Color_White"
+            values: "Array", "Color_White", "Color_Orange", "Gold_Foil", "Color_Gray", "Color_Black", "Metal", "Metal_2", "Metal_3", "Metal_4", "Strut_Gray", "Pattern_Squares", "Pattern_Cone", "Pattern_Bars", "Pattern_Bars_Band", "Pattern_Bars_Half", "Nozzle_2", "Nozzle_3", "SV_S1_USA", "SV_S1_Flag", "SV_S2", "SV_S3", "USA_Logo"
+            background_normal: "Assets/Button_Gray_Up.png"
+            background_down: "Assets/Button_Gray_Down.png"
+            option_cls: Factory.get("MySpinnerOption")
+            disabled: False
+        Label:
+            text: "部件类型:"
+            color: .35, .35, .35, 1
+        ToggleButton:
+            id: IC_Type
+            text: "Fairing"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_down: "Assets/Normal_Button_Down.png"
+            on_press: root.change_type(self, "Fairing", "Fuel Tank", "_")
+            color: .35, .35, .35, 1
+            font_size: "20sp"
+        Label:
+            text: "颜色模式:"
+            color: .35, .35, .35, 1
+        ToggleButton:
+            id: IC_Mono
+            text: "单色"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_down: "Assets/Normal_Button_Down.png"
+            on_press: root.change_type(self, "单色", "自动", "mono")
+            color: .35, .35, .35, 1
+            font_size: "20sp"
+        Label:
+            text: "新蓝图名称:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: IC_Blueprint_Name
+            multiline: False
+            write_tab: False
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+
+    FloatLayout:
+        size_hint: 1, None
+        height: "100dp"
+        Button:
+            id: IC_Gen
+            size_hint: .5, .75
+            pos_hint: {"center_x": .5, "y": .125}
+            text: "生成"
+            color: 0.8, 0.8, 0.8, 1
+            background_normal: "Assets/Button_Red_Up.png"
+            background_down: "Assets/Button_Red_Down.png"
+            on_press: root.IC_generate_blueprint()
+
+<BlueprintSpinner>:

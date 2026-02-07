@@ -1,0 +1,177 @@
+#:import Factory kivy.factory.Factory
+
+<MySpinnerOption@SpinnerOption>:
+    background_normal: "Assets/Button_Gray_Down.png"
+    background_down: "Assets/Button_Gray_Up.png"
+    height: "40sp"
+
+<Orientation>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        Button:
+            id: btn
+            text: "方向调整"
+            color: 0.4, 0.4, 0.4, 1
+            background_normal: "Assets/ButtonS_White_Up.png"
+            background_down: "Assets/ButtonS_White_Down.png"
+            on_parent: dropdown.dismiss()
+            on_release: dropdown.open(self)
+            size_hint_y: None
+            height: "50dp"
+
+        DropDown:
+            id: dropdown
+            on_select: btn.text = '{}'.format(args[1])
+            size_hint_y: None
+            height: "50dp"
+
+            Button:
+                text: "环生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "RG"
+                    dropdown.dismiss()
+            Button:
+                text: "部件对齐器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "PA"
+                    dropdown.dismiss()
+            Button:
+                text: "字体生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "FG"
+                    dropdown.dismiss()
+            Button:
+                text: "图像转换器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "IC"
+                    dropdown.dismiss()
+
+    GridLayout:
+        cols: 2
+        Label:
+            text: "蓝图:"
+            color: .35, .35, .35, 1
+        GeneralSpinner:
+            id: BP_S
+            path_index: 0
+            background_normal: "Assets/Button_Gray_Up.png"
+            background_down: "Assets/Button_Gray_Down.png"
+            option_cls: Factory.get("MySpinnerOption")
+            on_release: self.update_spinner()
+            on_press: self.update_spinner()
+        Label:
+            text: "改变类型:"
+            color: .35, .35, .35, 1
+        Spinner:
+            id: OR_Type
+            text: "X轴翻转"
+            values: "X轴翻转", "Y轴翻转", "Z轴旋转", "缩放"
+            background_normal: "Assets/Button_Gray_Up.png"
+            background_down: "Assets/Button_Gray_Down.png"
+            option_cls: Factory.get("MySpinnerOption")
+            on_text: root.orientation_type(self)
+        Label:
+            text: "X根:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: OR_X
+            text: "9"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_disabled_normal: "Assets/Normal_Button_Down_D.png"
+        Label:
+            text: "Y根:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: OR_Y
+            text: "40"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_disabled_normal: "Assets/Normal_Button_Down_D.png"
+            disabled: True
+        Label:
+            id: OR_Variable_Label
+            text: "Z角度:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: OR_Variable
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_disabled_normal: "Assets/Normal_Button_Down_D.png"
+            disabled: True
+        Label:
+            text: "缩放燃料:"
+            color: .35, .35, .35, 1
+        ToggleButton:
+            id: OR_Scale_Fuel
+            text: "否"
+            background_normal: "Assets/Button_False.png"
+            background_down: "Assets/Button_True.png"
+            on_press: root.change_tbutton_state(self)
+            disabled: True
+            background_disabled_normal: "Assets/Button_False_D.png"
+            background_disabled_down: "Assets/Button_True_D.png"
+        Label:
+            text: "新蓝图名称:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: OR_Blueprint_Name
+            multiline: False
+            write_tab: False
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+
+    FloatLayout:
+        size_hint: 1, None
+        height: "100dp"
+        Button:
+            id: OR_Gen
+            size_hint: .5, .75
+            pos_hint: {"center_x": .5, "y": .125}
+            text: "生成"
+            color: 0.8, 0.8, 0.8, 1
+            background_normal: "Assets/Button_Red_Up.png"
+            background_down: "Assets/Button_Red_Down.png"
+            on_press: root.OR_generate_blueprint()

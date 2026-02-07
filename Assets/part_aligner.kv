@@ -1,0 +1,224 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+
+<PartAligner>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        Button:
+            id: btn
+            text: "部件对齐器"
+            color: 0.4, 0.4, 0.4, 1
+            background_normal: "Assets/ButtonS_White_Up.png"
+            background_down: "Assets/ButtonS_White_Down.png"
+            on_parent: dropdown.dismiss()
+            on_release: dropdown.open(self)
+            size_hint_y: None
+            height: "50dp"
+
+        DropDown:
+            id: dropdown
+            on_select: btn.text = '{}'.format(args[1])
+            size_hint_y: None
+            height: "50dp"
+
+            Button:
+                text: "环生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "RG"
+                    dropdown.dismiss()
+            Button:
+                text: "方向调整"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "OR"
+                    dropdown.dismiss()
+            Button:
+                text: "字体生成器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "FG"
+                    dropdown.dismiss()
+            Button:
+                text: "图像转换器"
+                size_hint_y: None
+                height: "50dp"
+                color: 0.4, 0.4, 0.4, 1
+                background_normal: "Assets/ButtonS_White_Up.png"
+                background_down: "Assets/ButtonS_White_Down.png"
+                on_release:
+                    app.root.current = "IC"
+                    dropdown.dismiss()
+
+    GridLayout:
+        cols: 2
+        Label:
+            text: "根部件X:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_R_X
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "根部件Y:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_R_Y
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "根部件Z:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_R_Z
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "根部件宽度:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_R_W
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "根部件高度:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_R_H
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "对齐部件宽度:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_A_W
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "对齐部件Z:"
+            color: .35, .35, .35, 1
+        TextInput:
+            id: AL_A_Z
+            text: "2"
+            font_size: "20sp"
+            padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+            write_tab: False
+            multiline: False
+            background_active: "Assets/Normal_Button_Up.png"
+            background_normal: "Assets/Normal_Button_Down.png"
+        Label:
+            text: "对齐到侧边:"
+            color: .35, .35, .35, 1
+        ToggleButton:
+            id: AL_Side
+            text: "左"
+            background_normal: "Assets/Normal_Button_Down.png"
+            background_down: "Assets/Normal_Button_Down.png"
+            on_press: root.change_left_right_state(self)
+            color: .35, .35, .35, 1
+            font_size: "20sp"
+    FloatLayout:
+        size_hint: 1, 1/9
+        Button:
+            id: PA_Gen
+            size_hint: .5, .75
+            pos_hint: {"center_x": .5, "y": .125}
+            text: "生成"
+            color: 0.8, 0.8, 0.8, 1
+            background_normal: "Assets/Button_Red_Up.png"
+            background_down: "Assets/Button_Red_Down.png"
+            on_press: root.show_coordinates()
+    GridLayout:
+        size_hint: 1, 2/9
+        cols: 2
+        Label:
+            text: "对齐部件X:"
+            color: .35, .35, .35, 1
+        BoxLayout:
+            Button:
+                size_hint: None, 1
+                width: "50dp"
+                text: "复制"
+                font_size: "20sp"
+                background_normal: "Assets/Button_Gray_Up.png"
+                background_down: "Assets/Button_Gray_Down.png"
+                on_release: Clipboard.copy(AL_A_X.text)
+            TextInput:
+                id: AL_A_X
+                font_size: "20sp"
+                padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+                write_tab: False
+                multiline: False
+                background_active: "Assets/Normal_Button_Up.png"
+                background_normal: "Assets/Normal_Button_Up.png"
+                readonly: True
+        Label:
+            text: "对齐部件Y:"
+            color: .35, .35, .35, 1
+        BoxLayout:
+            Button:
+                size_hint: None, 1
+                width: "50dp"
+                text: "复制"
+                font_size: "20sp"
+                background_normal: "Assets/Button_Gray_Up.png"
+                background_down: "Assets/Button_Gray_Down.png"
+                on_press: Clipboard.copy(AL_A_Y.text)
+            TextInput:
+                id: AL_A_Y
+                font_size: "20sp"
+                padding: [10, self.height/2.2- self.font_size/2, 10, 10]
+                write_tab: False
+                multiline: False
+                on_text_validate: root.validate_numeric_text(self)
+                background_active: "Assets/Normal_Button_Up.png"
+                background_normal: "Assets/Normal_Button_Up.png"
+                readonly: True
